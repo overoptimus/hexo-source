@@ -1,0 +1,8 @@
+class:
+  class_name: 友情链接
+  link_list:
+    1:
+      name: secWiki
+      link: https://www.sec-wiki.com/
+      avatar: https://www.sec-wiki.com/logo.jpg
+      descr: 网络安全的维基百科
