@@ -32,3 +32,4 @@ branches:
 env:
     global:
         - GH_REF: https://overoptimus:${GITHUB_TOKEN}@github.com/overoptimus/overoptimus.github.io.git #设置GH_REF，注意更改yourname,GITHUB_TOKEN:就是我们在travis-ci仓库中配置的环境变量
+# 完结
