@@ -17,7 +17,8 @@ menu:
 
 # Favicon
 # ---------------
-favicon: /img/favicon.png
+# favicon: /img/favicon.png
+favicon: https://superj.oss-cn-beijing.aliyuncs.com/favicon.png
 
 # PWA
 # See https://github.com/JLHwung/hexo-offline
@@ -98,7 +99,8 @@ katex:
 
 # Post info settings
 # ---------------
-avatar: /img/avatar.jpg
+# avatar: /img/avatar.jpg
+avatar: https://superj.oss-cn-beijing.aliyuncs.com/avatar.jpg
 
 # the banner image of index
 # index_img: https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/index.jpg

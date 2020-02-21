@@ -79,13 +79,130 @@ tags:
 
 <img src="https://superj.oss-cn-beijing.aliyuncs.com/20200213160438.png" style="zoom:50%;" />
 
+## Medium
+
+```php
+<?php
+
+if( isset( $_POST[ 'Submit' ] ) ) {
+    // Get input
+    $id = $_POST[ 'id' ];
+    $id = mysql_real_escape_string( $id );
+
+    // Check database
+    $query  = "SELECT first_name, last_name FROM users WHERE user_id = $id;";
+    $result = mysql_query( $query ) or die( '<pre>' . mysql_error() . '</pre>' );
+
+    // Get results
+    $num = mysql_numrows( $result );
+    $i   = 0;
+    while( $i < $num ) {
+        // Display values
+        $first = mysql_result( $result, $i, "first_name" );
+        $last  = mysql_result( $result, $i, "last_name" );
+
+        // Feedback for end user
+        echo "<pre>ID: {$id}<br />First name: {$first}<br />Surname: {$last}</pre>";
+
+        // Increase loop count
+        $i++;
+    }
+
+    //mysql_close();
+}
+
+?>
+```
+
+观察页面，发现是通过下拉框来点击选择ID，我们有bp抓包，发现通过POST请求将ID传递给服务器，因此我们可以通过hack bar修改POST请求包进行注入。
+
+源码发现中间通过函数`mysql_real_escape_string()`将特殊的字符全部转义了，所以我们可以通过十六进制绕过。
+
+## High
+
+```php
+<?php
+
+if( isset( $_SESSION [ 'id' ] ) ) {
+    // Get input
+    $id = $_SESSION[ 'id' ];
+
+    // Check database
+    $query  = "SELECT first_name, last_name FROM users WHERE user_id = '$id' LIMIT 1;";
+    $result = mysql_query( $query ) or die( '<pre>Something went wrong.</pre>' );
+
+    // Get results
+    $num = mysql_numrows( $result );
+    $i   = 0;
+    while( $i < $num ) {
+        // Get values
+        $first = mysql_result( $result, $i, "first_name" );
+        $last  = mysql_result( $result, $i, "last_name" );
+
+        // Feedback for end user
+        echo "<pre>ID: {$id}<br />First name: {$first}<br />Surname: {$last}</pre>";
+
+        // Increase loop count
+        $i++;
+    }
+
+    mysql_close();
+}
+
+?>
+```
+
+可以发现在sql语句中添加了`limit 1`限制了返回的数据只有一条。我们可以在查询语句中通过将后面的语句注释掉来进行绕过。
+
+这里提交sql语句和查询结果显示的界面不在一块，是为了防止一般的sqlmap注入。
+
+## Impossible
+
+```php
+<?php
+
+if( isset( $_GET[ 'Submit' ] ) ) {
+    // Check Anti-CSRF token
+    checkToken( $_REQUEST[ 'user_token' ], $_SESSION[ 'session_token' ], 'index.php' );
+
+    // Get input
+    $id = $_GET[ 'id' ];
+
+    // Was a number entered?
+    if(is_numeric( $id )) {
+        // Check the database
+        $data = $db->prepare( 'SELECT first_name, last_name FROM users WHERE user_id = (:id) LIMIT 1;' );
+        $data->bindParam( ':id', $id, PDO::PARAM_INT );
+        $data->execute();
+        $row = $data->fetch();
+
+        // Make sure only 1 result is returned
+        if( $data->rowCount() == 1 ) {
+            // Get values
+            $first = $row[ 'first_name' ];
+            $last  = $row[ 'last_name' ];
+
+            // Feedback for end user
+            echo "<pre>ID: {$id}<br />First name: {$first}<br />Surname: {$last}</pre>";
+        }
+    }
+}
+
+// Generate Anti-CSRF token
+generateSessionToken();
+
+?>
+```
+
+首先添加了`Anti-CSRF token`，又对输入的id判断是否为数字，是数字才能进行下一步的操作，并且使用了PDO对sql语句进行了预编译。最后查询结果必须只有一条，才进行输出。
+
 # SQL Injection（Blind）
 
 ## low
 
 SQL Injection（Blind），即SQL盲注，与一般注入的区别在于，一般的注入攻击者可以直接从页面上看到注入语句的执行结果，而盲注时攻击者通常是无法从显示页面上获取执行结果，甚至连注入语句是否执行都无从得知，因此盲注的难度要比一般注入高。目前网络上现存的SQL注入漏洞大多是SQL盲注。
 
-基本的盲注有时间盲注，bool盲注和报错盲注。
+基本的盲注有时间盲注，bool盲注。
 
 #### bool盲注：
 
@@ -106,8 +223,6 @@ and if(ascii(mid(select group_concat(column_name) from information_schema.column
 ```
 
 拆解上面的sql语句，就是执行select语句，查询结果从第一个位置取其ascii码与0进行比较，若返回真，执行slee(5)，若返回假，返回1。
-
-#### 报错注入（挖坑再加）
 
 # Brute Force
 
@@ -686,11 +801,26 @@ generateSessionToken();
 
 ## low
 
+```php
+<?php
+
+// The page we wish to display
+$file = $_GET[ 'page' ];
+
+?>
+```
+
 我们首先点击file1.php，观察包含文件在url中。
 
 ![](https://superj.oss-cn-beijing.aliyuncs.com/20200214145932.png)
 
 因此我们可以构造url中的参数，找服务器中的敏感文件。
+
+我们首先输入一个`http://172.16.34.167/dvwa/vulnerabilities/fi/?page=/etc/passwd`
+
+可以看到报错信息，发现网站存放的绝对路劲。
+
+<img src="https://superj.oss-cn-beijing.aliyuncs.com/20200220110503.png"  />
 
 以下贴出查到的一些敏感文件。
 
@@ -803,6 +933,79 @@ username: passwd: lastchg: min: max: warn: inactive: expire: flag
 ```
 
 我们在这里还可以利用路径回溯：`../../../../`来寻找敏感文件。
+
+> 在php的环境下，我们还可以读取php.ini，来查看php的配置。
+>
+> php版本小于5.3.4，并且Magic_quote_gpc为off时，可以使用%00截断。
+>
+> 当配置中，allow_url_fopen与allow_url_include开启时，还可以包含远程服务器的文件，若对文件还没有检查，可导致远程代码执行。
+
+## Medium
+
+```php
+<?php
+
+// The page we wish to display
+$file = $_GET[ 'page' ];
+
+// Input validation
+$file = str_replace( array( "http://", "https://" ), "", $file );
+$file = str_replace( array( "../", "..\"" ), "", $file );
+
+?>
+```
+
+可以看到，对传入参数进行了过滤，将`http://`、`https://`、`../`、`..\`都进行了过滤，替换为空。
+
+我们可以使用双写的方法进行绕过。如：
+
+`htthttps://ps://`
+
+`..././`
+
+## High
+
+```php
+<?php
+
+// The page we wish to display
+$file = $_GET[ 'page' ];
+
+// Input validation
+if( !fnmatch( "file*", $file ) && $file != "include.php" ) {
+    // This isn't the page we want!
+    echo "ERROR: File not found!";
+    exit;
+}
+
+?>
+```
+
+发现通过`fnmatch()`只能包含file开头的文件，那么我们可以通过file协议来进行绕过。
+
+> http://172.16.34.167/dvwa/vulnerabilities/fi/page=file:///C:/flag/flag.txt
+
+然后是任意代码执行，需要结合文件上传，然后找到上传文件的绝对路径，将文件用file协议包含进来。
+
+## Impossible
+
+```php
+<?php
+
+// The page we wish to display
+$file = $_GET[ 'page' ];
+
+// Only allow include.php or file{1..3}.php
+if( $file != "include.php" && $file != "file1.php" && $file != "file2.php" && $file != "file3.php" ) {
+    // This isn't the page we want!
+    echo "ERROR: File not found!";
+    exit;
+}
+
+?>
+```
+
+使用了白名单的手段，只允许`include.php`、`file1.php`、`file2php`、`file3.php`。
 
 # File Upload
 
