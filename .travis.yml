@@ -41,5 +41,5 @@ env:
     global:
         - GH_REF: github.com/overoptimus/overoptimus.github.io.git #设置GH_REF，注意更改yourname,GITHUB_TOKEN:就是我们在travis-ci仓库中配置的环境变量
         - GITHUB_TOKEN: "${github_token}"
-        - CD_REF: e.coding.net/overoptimus/overoptimus.coding.me.git
+        - CD_REF: e.coding.net/overoptimus/overoptimus.git
         - CD_TOKEN: "${cd_token}"
