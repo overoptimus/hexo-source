@@ -31,9 +31,9 @@ after_script:
     - git config user.name "overoptimus"
     - git config user.email "1040570917@qq.com"
     - git add .
-    - git commit -am "Travis CI Auto Builder :$(date '+%Y-%m-%d %H:%M:%S' -d '+8 hour')" # 零时区，+8小时
+    - git commit -am "Travis CI Auto Builder :$(date '+%Y-%m-%d %H:%M:%S')" # 零时区，+8小时
     - git push --force --quiet "https://${GITHUB_TOKEN}@${GH_REF}" master:master
-    - git push --force --quiet "https://overoptimus:${CD_TOKEN}@${CD_REF}" master:master
+    - git push --force --quiet "https://EBlvrRYUzD:${CD_TOKEN}@${CD_REF}" master:master
 branches:
     only:
         - master #只监测master分支,这是我自己的博客，所以就用的master分支了。
