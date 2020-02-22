@@ -291,7 +291,7 @@ bing_site_verification:
 
 # Baidu Webmaster tools verification setting
 # See: https://ziyuan.baidu.com/site/
-baidu_site_verification: 71c95cec816d3fbde4649f04fad532d8
+baidu_site_verification:
 
 # 360 Webmaster tools verification setting
 # see http://zhanzhang.so.com/
