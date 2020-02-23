@@ -94,7 +94,159 @@ hexo s			# 本地启动hexo server
 
 之后就可以通过`http://localhost:4000/`访问博客。
 
- <img src="https://superj.oss-cn-beijing.aliyuncs.com/20200222225752.png" style="zoom:50%;" />
+<img src="https://superj.oss-cn-beijing.aliyuncs.com/20200222225752.png" style="zoom:50%;" />
+
+这里我贴出我的站点`_config.yml`。
+
+```yml
+# Hexo Configuration
+## Docs: https://hexo.io/docs/configuration.html
+## Source: https://github.com/hexojs/hexo/
+
+# hexo-neat
+neat_enable: true
+neat_html:
+  enable: true
+  exclude:  
+neat_css:
+  enable: true
+  exclude:
+    - '*.min.css'
+neat_js:
+  enable: true
+  mangle: true
+  output:
+  compress:
+  exclude:
+    - '*.min.js'
+
+# Site
+title: 0pt1mus
+subtitle: 不温不火，不急不躁，了解hows背后的whys
+description: 文化水平不够可以读，为人处世不同可以学，钱没有可以赚，唯独你的内心必须坚定，你要不断努力，并且相信你自己绝对是一个有价值，值得被尊重和喜欢的人。
+author: 0pt1mus
+email: 1040570917@qq.com
+language: zh-CN
+timezone:
+avatar: /images/avatar.jpg
+# search: 59fe6eea70113d77622d1c85f2aeb87a
+
+# URL
+## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+url: https://superj.site/
+root: /
+permalink: :year/:month/:day/:id/
+permalink_defaults:
+
+# Directory
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+
+# Writing
+new_post_name: :title.md # File name of new posts
+default_layout: post
+titlecase: false # Transform title into titlecase
+external_link: true # Open external links in new tab
+filename_case: 0
+render_drafts: false
+post_asset_folder: true
+relative_link: false
+future: true
+highlight:
+  enable: true
+  line_number: true
+  auto_detect: false
+  tab_replace:
+
+# Home page setting
+# path: Root path for your blogs index page. (default = '')
+# per_page: Posts displayed per page. (0 = disable pagination)
+# order_by: Posts order. (Order by date descending by default)
+index_generator:
+  path: ''
+  per_page: 10
+  order_by: -date
+
+# Category & Tag
+default_category: uncategorized
+category_map:
+tag_map:
+
+# Date / Time format
+## Hexo uses Moment.js to parse and display date
+## You can customize the date format as defined in
+## http://momentjs.com/docs/#/displaying/format/
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+
+# Pagination
+## Set per_page to 0 to disable pagination
+per_page: 10
+pagination_dir: page
+
+# Extensions
+## Plugins: https://hexo.io/plugins/
+## Themes: https://hexo.io/themes/
+theme: Butterfly
+
+# Search
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
+
+jsonContent:
+  dateFormat: DD/MM/YYYY
+  posts:
+    title: true
+    date: true
+    path: true
+    text: true
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: false
+    tags: false
+    author: false
+
+
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+  content:
+
+sitemap:
+  path: sitemap.xml
+
+baidusitemap:
+  path: baidusitemap.xml
+
+# Deployment
+## Docs: https://hexo.io/docs/deployment.html
+deploy:
+ # - type: git
+ #   repository: git@github.com:overoptimus/overoptimus.github.io.git
+ #   branch: master
+  - type: git
+    repo: 
+      coding: git@e.coding.net:overoptimus/overoptimus.git
+      github: git@github.com:overoptimus/overoptimus.github.io.git
+    branch: master
+```
 
 # 发布到github和coding
 
@@ -207,5 +359,111 @@ hexo s
 
 [Butterfly](https://jerryc.me/posts/21cfbf15/#快速開始)
 
-# trivas更新源码自动发布博客
+# 开始写博客
+
+到现在我们可以开始写博客了。
+
+```shell
+hexo new "文章名"
+```
+
+在博客的目录下，也就是myblog下，输入上述命名，可以在`source/_post`下生成`文章名.md`的文件，然后我们编辑该文件，书写文章就可以，`markdown`的语法网上有很多教程，百度一下学习吧。
+
+每次写完之后，进行以下命令：
+
+```shell
+hexo clean
+hexo g
+hexo d
+```
+
+这样就可以将你的博客发布上去了。
+
+# 配置trivas实现自动部署博客到github和coding
+
+我们在写博客的过程中，每次写了一篇文章后，就要执行重复的命令去将生成博客，然后推送到`github`和`coding`，并且我们也会需要将源码进行一个备份，如果我们备份在硬盘里，每次写完文章都需要去更新硬盘中的文件，会比较麻烦。下面我介绍通过`trivas`同时实现博客的备份和自动化部署。
+
+首先我们在github中创建一个名为`hexo-source`的仓库。然后在本地执行以下命令。
+
+```shell
+git init
+git add .
+git commit -m "first commit"
+git remote add origin https://github.com/overoptimus/hexo-source.git //这里要修改为你自己的仓库地址
+git push -u origin master
+```
+
+将本地的`hexo`源码推送到远端的仓库。
+
+然后打开`trivas`官网。
+
+[trivas]: https://www.travis-ci.org/
+
+通过github的账户进行登录，然后开启`hexo-source`的`services integration`服务。
+
+![](https://superj.oss-cn-beijing.aliyuncs.com/20200223153544.png)
+
+点击setting添加`Environment Variables`，`name`可以自己命名，`value`添加`github`和`coding`生成的访问令牌，生成的位置`github`在settings->developer settings->personal access tokens，`coding`在个人设置->访问令牌。权限选择选择完整的仓库读写。
+
+然后在本地的博客目录，即`myblog`下，创建`.trivas.yml`文件，内容如下。
+
+```yml
+language: node_js # 设置语言
+
+node_js: stable # 设置相应版本
+
+cache:
+    apt: true
+    directories:
+        - node_modules # 设置缓存，传说会在构建的时候快一些
+
+git:
+    depth: 1
+    submodules: true
+
+before_install:
+    - export TZ='Asia/Shanghai'
+    - npm install hexo-cli -g
+
+install:
+    - npm install # 安装hexo及插件
+
+script:
+    - hexo clean # 清除
+    - hexo g # 生成
+
+after_script:
+    # - git clone https://${GH_REF} pub_web # 因为我有两个仓库，先将发布服务的仓库clone下来，
+    # - cp -rf public/* pub_web/ # 将源博客仓库(blog.git)目录下的public文件夹下的文件复制到发布服务的仓库(chenzhijun.github.com.git)中
+    # - cd pub_web # 进入到git仓库
+    - cd ./public
+    - git init
+    - git config user.name "overoptimus"
+    - git config user.email "1040570917@qq.com"
+    - git add .
+    - git commit -am "Travis CI Auto Builder :$(date '+%Y-%m-%d %H:%M:%S')" # 零时区，+8小时
+    - git push --force --quiet "https://${GITHUB_TOKEN}@${GH_REF}" master:master
+    - git push --force --quiet "https://EBlvrRYUzD:${CD_TOKEN}@${CD_REF}" master:master
+branches:
+    only:
+        - master #只监测master分支,这是我自己的博客，所以就用的master分支了。
+env:
+    global:
+        - GH_REF: github.com/overoptimus/overoptimus.github.io.git #设置GH_REF，注意更改yourname,GITHUB_TOKEN:就是我们在travis-ci仓库中配置的环境变量
+        - GITHUB_TOKEN: "${github_token}"
+        - CD_REF: e.coding.net/overoptimus/overoptimus.git
+        - CD_TOKEN: "${cd_token}"
+```
+
+注意其中的一些位置要改成你自己的信息，特别注意在推送到`coding`的地址中`https://`后接的一串字符是在你创建`coding`的访问令牌时的页面中提示你的。且其中${xx_token}是与你在`Environment Variable`中的`name`是一致的。
+
+现在设置已经完成，将本地的更改推送到远程仓库，然后就会在trivas的网站中发现，开始自动部署了。过一会儿你就访问你的博客，发现已经更新了。
+
+然后你就会发现，你可以在任意的地方，即使没有`git`、`node.js`的环境，你在源码仓库进行更改并提交后，`trivas`就可以帮助你将更新后的内容同步到你的博客中。
+
+# 写在后面
+
+现在你就可以很方便、优雅的书写自己的博客文章了，如果你并不喜欢`butterfly`这个主题，你也可以百度一下，寻找你自己的最爱。
+
+希望这篇文章能够对你有所帮助。
 

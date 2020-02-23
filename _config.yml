@@ -145,7 +145,7 @@ feed:
 sitemap:
   path: sitemap.xml
 
-baidusitemao:
+baidusitemap:
   path: baidusitemap.xml
 
 # Deployment
