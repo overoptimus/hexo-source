@@ -8,7 +8,7 @@ tags:
 categories: 网络安全
 ---
 
-打开网站，可以发现只存在一个选择文件框和一个上传按钮。
+打开网站，发现只存在一个选择文件框和一个上传按钮。
 
 ![](https://superj.oss-cn-beijing.aliyuncs.com/20200313214718.png)
 
