@@ -181,7 +181,7 @@ post_meta:
 
 # Please see doc for more details: https://jerryc.me/posts/21cfbf15/#字數統計
 wordcount:
-  enable: false
+  enable: true
 
 toc:
   enable: true
@@ -600,7 +600,7 @@ snackbar:
 
 #百度推送
 baidu_push:
-  enable: false
+  enable: true
 
 # https://instant.page/
 # prefetch預加載
