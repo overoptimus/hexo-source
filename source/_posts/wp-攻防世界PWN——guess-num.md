@@ -104,7 +104,7 @@ int rand1(){
 gcc -fPIC -shared g_rand.c -o g_rand.so
 ```
 
-然后我们在exp中，将文件的路劲改为我们生成的so文件，调用变为我们自己的函数，也可以实现。
+然后我们在exp中，将文件的路径改为我们生成的so文件，调用变为我们自己的函数，也可以实现。
 
 ```python
 from pwn import *
