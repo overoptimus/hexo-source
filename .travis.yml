@@ -27,6 +27,7 @@ after_script:
     # - cp -rf public/* pub_web/ # 将源博客仓库(blog.git)目录下的public文件夹下的文件复制到发布服务的仓库(chenzhijun.github.com.git)中
     # - cd pub_web # 进入到git仓库
     - cd ./public
+    - echo "superj.site" > CNAME
     - git init
     - git config user.name "overoptimus"
     - git config user.email "1040570917@qq.com"
