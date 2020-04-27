@@ -499,8 +499,8 @@ subtitle:
   # (如果有英文逗號' , '，請使用轉義字符 &#44;)
   # 如果關閉打字效果，subtitle只會顯示sub的第一行文字
   sub:
-    - 不温不火&#44;不急不躁&#44;了解hows背后的whys
-    - Getting angry and anxious can not help you to find out the why behind how
+    - 只要别看轻自己&#44;你就无所不能
+    - As long as you believe in yourself,nothing can knock you down
 
 # fontawesome圖標
 # 默認使用的是 fontawesome v4版本的圖標
