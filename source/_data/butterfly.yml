@@ -550,7 +550,7 @@ aside:
     description:
   card_announcement:
     enable: true
-    content: This is my Blog
+    content: 做好自己的每一件事
   card_recent_post:
     enable: true
     limit: 5 # if set 0 will show all
@@ -607,7 +607,7 @@ readmode:
 
 # dark mode
 darkmode:
-  enable: true
+  enable: false
   # dark mode和 light mode切換按鈕
   button: true
   # 自動切換 dark mode和 light mode
