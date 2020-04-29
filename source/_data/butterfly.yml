@@ -245,7 +245,7 @@ disqusjs:
   api: https://disqus.skk.moe/disqus/ #一般情況下無需修改 API 地址
   admin:
   adminLabel:
-  count: true # top_img顯示評論數
+  count: false # top_img顯示評論數
 
 laibili:
   enable: true
