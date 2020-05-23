@@ -23,7 +23,9 @@ description: elf文件中的GOT表和PLT表的基础知识。
 
 #### .got
 
-GOT(Global Offset Table)全局偏移表。这是链接器为外部符号填充的实际偏移票。
+GOT(Global Offset Table)全局偏移表。这是链接器为外部符号填充的实际偏移表。
+
+.got Section中存放外部全局变量的GOT表，例如stdin/stdout/stderr，非延迟绑定
 
 #### .plt
 
@@ -32,6 +34,8 @@ PLT(Procedure Linkage Table)程序链接表。作用是一个跳板，保存了�
 #### .got.plt
 
 这个是GOT专门为PLT准备的节。保存了重定位地址。`.got.plt`中的值是GOT的一部分。它包含上述PLT表所需地址(已经找到的和需要去触发的)。
+
+.got.plt Section中存放外部函数的GOT表，例如printf，采用延迟绑定
 
 #### 实例
 
