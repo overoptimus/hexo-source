@@ -83,7 +83,7 @@ int main(int argc, char const *argv[])
 
   ![image-20200506172031681](https://superj.oss-cn-beijing.aliyuncs.com/image-20200506172031681.png)
 
-  发现该地址存着的信息是当前执行指令的下一个位置。所以执行`jmp 0x804a00c`后会到`0x80482e6`的位置。
+  发现该地址存着的信息是当前执行指令的下一个位置。所以执行`jmp [0x804a00c]`后会到`0x80482e6`的位置。
 
   这里就可以理解，在第一次执行时，plt在`.got.plt`中没找到puts函数的地址，然后触发链接器去寻找puts函数的地址。
 
