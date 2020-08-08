@@ -10,7 +10,7 @@ categories: 网络安全
 
 首先我们打开网页，发现三个链接。
 
-![image-20200324165348081](/Users/optimus/Library/Application Support/typora-user-images/image-20200324165348081.png)
+![image-20200324165348081](https://superj.oss-cn-beijing.aliyuncs.com/image-20200324165348081.png)
 
 点击第一个flag.txt，打开提示我们：
 
