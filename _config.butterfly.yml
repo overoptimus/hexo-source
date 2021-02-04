@@ -80,25 +80,29 @@ katex:
 # --------------------------------------
 
 # Favicon（網站圖標）
-favicon: /img/favicon.png
+favicon: /images/favicon.jpg
 
 # Avatar (頭像)
 avatar:
-  img: https://superj.oss-cn-beijing.aliyuncs.com/avatar.png
+  img: /images/avatar.jpg
   effect: false
 
 # The banner image of home page
-index_img: https://superj.oss-cn-beijing.aliyuncs.com/20200216122432.png
+index_img: /images/index_img.png
+# https://superj.oss-cn-beijing.aliyuncs.com/20200216122432.png
 
 # If the banner of page not setting, it will show the top_img
-default_top_img: https://superj.oss-cn-beijing.aliyuncs.com/20200216122648.png
+default_top_img: 'linear-gradient(20deg, #0062be, #925696, #cc426e, #fb0347)'
+#https://superj.oss-cn-beijing.aliyuncs.com/20200216122648.png
 
 # The banner image of archive page
-archive_img: https://superj.oss-cn-beijing.aliyuncs.com/20200216151841.png
+archive_img: 'linear-gradient(20deg, #0062be, #925696, #cc426e, #fb0347)'
+#https://superj.oss-cn-beijing.aliyuncs.com/20200216151841.png
 
 # If the banner of tag page not setting, it will show the top_img
 # note: tag page, not tags page (子標籤頁面的 top_img)
-tag_img: https://superj.oss-cn-beijing.aliyuncs.com/20200216151924.png
+tag_img: 'linear-gradient(20deg, #0062be, #925696, #cc426e, #fb0347)'
+#https://superj.oss-cn-beijing.aliyuncs.com/20200216151924.png
 
 # The banner image of tag page
 # format:
@@ -107,7 +111,8 @@ tag_per_img:
 
 # If the banner of category page not setting, it will show the top_img
 # note: category page, not categories page (子分類頁面的 top_img)
-category_img: https://superj.oss-cn-beijing.aliyuncs.com/20200216151947.png
+category_img: 'linear-gradient(20deg, #0062be, #925696, #cc426e, #fb0347)'
+#https://superj.oss-cn-beijing.aliyuncs.com/20200216151947.png
 
 # The banner image of category page
 # format:
@@ -124,19 +129,29 @@ cover:
   position: both
   # When cover is not set, the default cover is displayed (當沒有設置cover時，默認的封面顯示)
   default_cover:
-    # - https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg
-    - https://superj.oss-cn-beijing.aliyuncs.com/20200216120947.png
-    - https://superj.oss-cn-beijing.aliyuncs.com/20200216121234.png
-    - https://superj.oss-cn-beijing.aliyuncs.com/20200216121500.png
-    - https://superj.oss-cn-beijing.aliyuncs.com/20200216121625.png
-    - https://superj.oss-cn-beijing.aliyuncs.com/20200216121757.png
-    - https://superj.oss-cn-beijing.aliyuncs.com/20200216121825.png
-    - https://superj.oss-cn-beijing.aliyuncs.com/20200216121847.png
-    - https://superj.oss-cn-beijing.aliyuncs.com/20200216121857.png
-    - https://superj.oss-cn-beijing.aliyuncs.com/20200216121910.png
-    - https://superj.oss-cn-beijing.aliyuncs.com/20200216121934.png
-    - https://superj.oss-cn-beijing.aliyuncs.com/20200216121952.png
-    - https://superj.oss-cn-beijing.aliyuncs.com/20200216122037.png
+    - https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg
+    - https://i.loli.net/2021/02/04/y4DexbTp1hzNFcK.jpg
+    - https://i.loli.net/2021/02/04/4Pm6lXyNnd1eR97.jpg
+    - https://i.loli.net/2021/02/04/6bBAayXL3r8mEnM.jpg
+    - https://i.loli.net/2021/02/04/AsNRz9TgPp5XEqe.jpg
+    - https://i.loli.net/2021/02/04/yfU6h3tAEcgjdlD.jpg
+    - https://i.loli.net/2021/02/04/dcEIHLuyQSkR2XG.jpg
+    - https://i.loli.net/2021/02/04/xOvsNMZ6f8omcpC.jpg
+    - https://i.loli.net/2021/02/04/TrgbARMD6N9jQKp.jpg
+    - https://i.loli.net/2021/02/04/k9zXNgB5vKt4OGV.jpg
+    - https://i.loli.net/2021/02/04/CKxjDgJ8bd7fno5.jpg
+    #- https://superj.oss-cn-beijing.aliyuncs.com/20200216120947.png
+    #- https://superj.oss-cn-beijing.aliyuncs.com/20200216121234.png
+    #- https://superj.oss-cn-beijing.aliyuncs.com/20200216121500.png
+    #- https://superj.oss-cn-beijing.aliyuncs.com/20200216121625.png
+    #- https://superj.oss-cn-beijing.aliyuncs.com/20200216121757.png
+    #- https://superj.oss-cn-beijing.aliyuncs.com/20200216121825.png
+    #- https://superj.oss-cn-beijing.aliyuncs.com/20200216121847.png
+    #- https://superj.oss-cn-beijing.aliyuncs.com/20200216121857.png
+    #- https://superj.oss-cn-beijing.aliyuncs.com/20200216121910.png
+    #- https://superj.oss-cn-beijing.aliyuncs.com/20200216121934.png
+    #- https://superj.oss-cn-beijing.aliyuncs.com/20200216121952.png
+    #- https://superj.oss-cn-beijing.aliyuncs.com/20200216122037.png
 
 # Replace Broken Images (替換無法顯示的圖片)
 error_img:
@@ -523,11 +538,11 @@ enter_transitions: true
 # canvas_ribbon (靜止彩帶背景)
 # See: https://github.com/hustcc/ribbon.js
 canvas_ribbon:
-  enable: false
+  enable: true
   size: 150
   alpha: 0.6
   zIndex: -1
-  click_to_change: false
+  click_to_change: true
   mobile: false
 
 # Fluttering Ribbon (動態彩帶)
@@ -538,7 +553,7 @@ canvas_fluttering_ribbon:
 # canvas_nest
 # https://github.com/hustcc/canvas-nest.js
 canvas_nest:
-  enable: true
+  enable: false
   color: '0,0,255' #color of lines, default: '0,0,0'; RGB values: (R,G,B).(note: use ',' to separate.)
   opacity: 0.7 # the opacity of line (0~1), default: 0.5.
   zIndex: -1 # z-index property of the background, default: -1.
@@ -608,7 +623,7 @@ hr_icon:
 
 # the subtitle on homepage (主頁subtitle)
 subtitle:
-  enable: false
+  enable: true
   # Typewriter Effect (打字效果)
   effect: true
   # loop (循環打字)
