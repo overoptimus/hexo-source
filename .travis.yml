@@ -20,6 +20,7 @@ install:
     - npm install # 安装hexo及插件
 
 script:
+    - hexo -v # 查看hexo版本
     - hexo clean # 清除
     - hexo g # 生成
 
