@@ -17,11 +17,11 @@ tags:
 
 首先，进行通过file判断附件文件类型。
 
-![image-20191218220110553](攻防世界PWN(level0)/image-20191218220110553.png)
+![image-20191218220110553](https://superj.oss-cn-beijing.aliyuncs.com/image-20191218220110553.png)
 
 判断是ELF文件。这时就可以通过checksec判断文件的保护措施。
 
-![image-20191218220211791](攻防世界PWN(level0)/image-20191218220211791.png)
+![image-20191218220211791](https://superj.oss-cn-beijing.aliyuncs.com/image-20191218220211791.png)
 
 得到只开启了执行保护，地址随机化、栈保护都没有开启。
 
@@ -29,15 +29,15 @@ tags:
 
 开始IDA逆向分析。
 
-![image-20191218220426947](攻防世界PWN(level0)/image-20191218220426947.png)
+![image-20191218220426947](https://superj.oss-cn-beijing.aliyuncs.com/image-20191218220426947.png)
 
 在其中发现了main、vulnerable_function、callsystem函数逐个查看这三个函数。
 
-![image-20191218220524755](攻防世界PWN(level0)/image-20191218220524755.png)
+![image-20191218220524755](https://superj.oss-cn-beijing.aliyuncs.com/image-20191218220524755.png)
 
-![image-20191218220601881](攻防世界PWN(level0)/image-20191218220601881.png)
+![image-20191218220601881](https://superj.oss-cn-beijing.aliyuncs.com/image-20191218220601881.png)
 
-![image-20191218220616595](攻防世界PWN(level0)/image-20191218220616595.png)
+![image-20191218220616595](https://superj.oss-cn-beijing.aliyuncs.com/image-20191218220616595.png)
 
 发现该题中用到了write、read函数，google一下发现read函数是往内存里面写，而且发现大小为0x200大小，比0x80大的多，所以想到栈溢出，而且有callsystem函数（地址为0x400596）能够直接得到shell。
 
@@ -47,11 +47,11 @@ tags:
 
 编写exp。
 
-![image-20191218221333336](攻防世界PWN(level0)/image-20191218221333336.png)
+![image-20191218221333336](https://superj.oss-cn-beijing.aliyuncs.com/image-20191218221333336.png)
 
 ## 0x03
 
 得到flag。
 
-![image-20191218221438956](攻防世界PWN(level0)/image-20191218221438956.png)
+![image-20191218221438956](https://superj.oss-cn-beijing.aliyuncs.com/image-20191218221438956.png)
 
