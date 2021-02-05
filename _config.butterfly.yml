@@ -91,7 +91,8 @@ avatar:
 disable_top_img: false
 
 # The banner image of home page
-index_img: /images/index_img.png
+index_img: https://superj.oss-cn-beijing.aliyuncs.com/20200216122432.png
+# /images/index_img.png
 # https://superj.oss-cn-beijing.aliyuncs.com/20200216122432.png
 
 # If the banner of page not setting, it will show the top_img
