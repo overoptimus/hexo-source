@@ -172,6 +172,9 @@ baidusitemap:
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
+  # type: git
+  # repo: https://github.com/overoptimus/overoptimus.github.io
+  # branch: master
  # - type: git
  #   repository: git@github.com:overoptimus/overoptimus.github.io.git
  #   branch: master
