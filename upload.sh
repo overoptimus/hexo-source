@@ -8,5 +8,5 @@
  ###
 hexo clean
 hexo g
-echo "superj.ste" > ./public/CNAME
+echo "superj.site" > ./public/CNAME
 hexo d
